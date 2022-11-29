@@ -1,0 +1,58 @@
+.bakesale{
+    background-image:  url('../images/pic1.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+
+}
+@media only screen and (min-width:1025px){
+    .bakesale, .residential, .pledges, .auction, .chama{
+padding:150px
+    }
+}
+.residential{
+    background:#eeeeee  url('../images/pic2.png') no-repeat;
+    background-position: right;
+    background-size: contain;
+
+
+}
+
+.chama{
+    background:#eeeeee  url('../images/pic7.png') no-repeat;
+    background-position: right;
+    background-size: contain;
+
+
+}
+
+.pledges{
+    background: #eeeeee url('../images/pic3.png');
+    background-repeat: no-repeat;
+    background-size: 40%;
+    background-position: left;
+}
+@media only screen and (max-width:600px){
+    .residential, .pledges{
+background-image: none
+    }
+}
+.ideas_page h1{
+    color: #d6970b;
+    font-size: 120px;
+    margin: 0 0;
+    font-weight: bold
+}
+.ideas_page h2{
+    margin: -60px 0 0 30px;
+    background: #eeeeee  ;
+    display: inline-block;
+    padding: 10px 20px;
+}
+
+@media only screen and (max-width:600px){
+    .ideas_page h2{
+        font-size: 23px;
+        box-shadow: 10px 10px 10px 10px #ececec;
+    }
+    
+}
