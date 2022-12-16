@@ -141,8 +141,20 @@ export default class RegisterForm extends React.Component {
                     <div className="row">
                         <div className="col-md-6 col-12"><br/>
                             <h4>Get In Touch</h4>
+                            <br />
+                            <h5 className={styles.boldTitle}>MAILING ADDRESS:</h5>
+                            <p>P. O. Box 00623-00800<br />Nairobi, Kenya.</p>
+                            <br />
+                            <h5 className={styles.boldTitle}>PHONE NUMBERS:</h5>
+                            <p>Nairobi: 0748 811 909<br />Eldoret: 0746 963 107</p>
+                            <br />
+                            <h5 className={styles.boldTitle}>EMAIL ADDRESSES:</h5>
+                            <p><a href="mailto:info@farajacancersupport.org">info@farajacancersupport.org</a></p>
+                            <br />
+                            <h5 className={styles.boldTitle}>WE WANT TO HEAR FROM YOU</h5>
+                            <p>Faraja would love to hear from you.</p>
                             <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            Please reach out to us on <a href="mailto:info@farajacancersupport.org">info@farajacancersupport.org</a> with any questions or comments you may have and we will be happy to assist.
                             </p>
 
                         </div>
