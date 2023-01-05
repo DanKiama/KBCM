@@ -5,16 +5,114 @@ import { Link, graphql } from "gatsby";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 
-
+// import { GoogleAuth, GoogleAuthProvider, GoogleApi, SheetsApi } from 'google-auth-library';
+import axios from 'axios';
+// import { GoogleApis } from 'googleapis';
+// import fs from 'fs';
 
 
 class homePage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      email: '',
+      number: '',
+      deliveryPoint: '',
+      isLoading: false
+    }
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.resetForm = this.resetForm.bind(this);
+    this.formRef = React.createRef();
+  }
+
+  validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+  validate() {
+    var invalidItems = []
+    var data = this.state;
+    Object
+      .keys(data)
+      .map(key => {
+        var item = document.getElementsByName(key)[0];
+        if (!item) {
+          return;
+        }
+        if (data[key] === '') {
+          item
+            .classList
+            .add("error");
+          invalidItems.push(key);
+        } else {
+          if (key === "email") {
+            if (!this.validateEmail(data[key])) {
+              item
+                .classList
+                .add("error");
+              invalidItems.push(key);
+              return;
+            }
+          }
+          document
+            .getElementsByName(key)[0]
+            .classList
+            .remove("error");
+        }
+
+      });
+    return invalidItems.length === 0
+  }
+
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+
+  handleSubmit = (e) => {
+    if (!this.validate()) {
+      return;
+    }
+    e.preventDefault();
+    this.setState({ isLoading: true })
+    axios.post('https://sheet.best/api/sheets/d84aef1f-46c9-44ff-be30-fd871185bfac', this.state)
+      .then(response => {
+        console.log("Successful!")
+      })
+    setTimeout(() => {
+      this.setState({ isLoading: false, });
+      this.formRef.current.reset();
+    }, 1000);
+    this.setState({
+      name: '',
+      email: '',
+      number: '',
+      deliveryPoint: '',
+    })
+  };
+
+  resetForm = () => {
+    this.setState({
+      name: '',
+      email: '',
+      number: '',
+      deliveryPoint: '',
+    })
+  }
+
+
   render() {
+    const { name, email, number, deliveryPoint } = this.state;
+
     const banner = get(this, 'props.data.allContentfulBannerSection.nodes')[0]
     const aboutUsSection = get(this, 'props.data.allContentfulHomeAboutUsSection.nodes')[0]
     const hostYourOwn = get(this, 'props.data.allContentfulHostCoffeeMorning.nodes')[0]
     const upcomingCoffeeMornings = get(this, 'props.data.allContentfulUpcomingCoffeeMornings.edges')
     console.log(`This is hostyourOwn ${banner.description.content[0].content[0].value}`);
+
+
     return (
       <Layout>
         <SEO title="Home" />
@@ -174,29 +272,29 @@ class homePage extends React.Component {
 
             <div className="row">
               <div className="col-md-12 ">
-                <form>
+                <form ref={this.formRef} onSubmit={this.handleSubmit}>
                   <div className="form-row">
                     <div className="form-group col-md-6">
                       <label>Full names</label>
-                      <input type="text" className="form-control" id="names" placeholder="Enter your full names" />
+                      <input type="text" className="form-control fullNames" value={name} name="name" id="names" placeholder="Enter your full names" onChange={this.handleChange} />
                     </div>
                     <div className="form-group col-md-6">
                       <label >Email</label>
-                      <input type="email" className="form-control" id="email" placeholder="Email" />
+                      <input type="email" className="form-control email" value={email} name="email" id="email" placeholder="Email" onChange={this.handleChange} />
                     </div>
 
                   </div>
                   <div className="form-group">
                     <label >Phone number</label>
-                    <input type="number" className="form-control" id="number" placeholder="Enter phone number" />
+                    <input type="number" className="form-control number" value={number} name="number" id="number" placeholder="Enter phone number" onChange={this.handleChange} />
                   </div>
                   <div className="form-group">
                     <label >Where would you like your coffee morning kit to be sent to?</label>
-                    <input type="text" className="form-control" id="location" placeholder="Enter location" />
+                    <input type="text" className="form-control deliveryPoint" value={deliveryPoint} name="deliveryPoint" id="location" placeholder="Enter location" onChange={this.handleChange} />
                   </div>
 
+                  {this.state.isLoading ? <button type="submit" className="button">Submitting...</button> : <button type="submit" className="button">Submit</button>}
 
-                  <button type="submit" className="button">Submit</button>
                 </form>
               </div>
             </div>
