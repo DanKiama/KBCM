@@ -244,7 +244,7 @@ class homePage extends React.Component {
                 </p>
 
               </div>
-              <div className="col-md-5 col-sm-12 col-12 align-center">
+              <div className="col-md-5 col-sm-12 col-12 align-center">set
 
                 <Img alt="coffee maker" sizes={hostYourOwn.ideaTwoImage.sizes} />
 
